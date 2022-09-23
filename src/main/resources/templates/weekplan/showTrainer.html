@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Online-Kursverwaltung</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="mt-4 mb-4">
+        <h1>Kurse</h1>
+    </div>
+
+    <table th:if="${trainers != null}" class="table">
+        <tr>
+            <th>Name</th>
+            <th>Kurse</th>
+            <th>Arbeitstage</th>
+        </tr>
+        <tr th:each="trainer : ${trainers}">
+            <td th:text="${trainer.name}"></td>
+            <td th:text="${trainer.courseNamesAsString}"></td>
+            <td th:text="${trainer.workingDaysAsString}"></td>
+        </tr>
+    </table>
+
+    <div>
+        <hr/>
+        <h2>Neuer Eintrag</h2>
+        <form th:action="${'showTrainer/add'}" method="post" class="form-inline">
+            <input name="username" type="text" placeholder="Username" class="form-control mr-2">
+            <input name="password" type="text" placeholder="Password" class="form-control mr-2">
+            <input name="name" type="text" placeholder="Name" class="form-control mr-2">
+            <select class="form-control mr-2" multiple="multiple" name="courses">
+                <option disabled="disabled">Kurse</option>
+                <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
+            </select>
+            <select class="form-control mr-2" multiple="multiple" name="workingDays">
+                <option disabled="disabled">Arbeitstage</option>
+                <option th:each="workingDay : ${workingDays}" th:text="${workingDaysInGerman[workingDay.value - 1]}" th:value="${workingDay}"></option>
+            </select>
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+        </form>
+    </div>
+    <hr/>
+    <p class="small">
+        <a href="/weekplan/">Index</a>
+    </p>
+</div>
+</body>
+</html>

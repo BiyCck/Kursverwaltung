@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Online-Kursverwaltung</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="mt-4 mb-4">
+        <h1>Kurse</h1>
+    </div>
+
+    <table th:if="${weekplan != null}" class="table">
+        <tr>
+            <th>Kurs</th>
+            <th>Tag</th>
+            <th>Uhrzeit</th>
+            <th>Raum</th>
+            <th>Trainer</th>
+        </tr>
+        <tr th:each="appointment : ${weekplan}">
+            <td th:text="${appointment.course.name}"></td>
+            <td th:text="${appointment.dayOfWeek.name}"></td>
+            <td th:text="${appointment.localTime}"></td>
+            <td th:text="${appointment.room.roomName}"></td>
+            <td th:text="${appointment.trainer.name}"></td>
+        </tr>
+    </table>
+
+    <div>
+        <hr/>
+        <h2>Neuer Eintrag</h2>
+        <!-- TODO Formular für das Hinzufügen eines JournalEntry-Objekts -->
+        <form th:action="${'/weekplan/showWeekplan'}" method="post" class="form-inline">
+            <select class="form-control mr-2" multiple="disabled" name="dayOfWeek">
+                <option disabled="disabled">Wochentag</option>
+                <option th:each="dayOfWeek : ${dayOfWeeks}" th:text="${daysOfWeekInGerman[dayOfWeek.value - 1]}" th:value="${dayOfWeek}"></option>
+            </select>
+            <label for="time">Uhrzeit:</label>
+            <input type="time" id="time" name="localTime">
+            <select class="form-control mr-2" multiple="disabled" name="room">
+                <option disabled="disabled">Raum</option>
+                <option th:each="room : ${rooms}" th:text="${room.roomName}" th:value="${room.id}"></option>
+            </select>
+            <select class="form-control mr-2" multiple="disabled" name="trainer">
+                <option disabled="disabled">Trainer</option>
+                <option th:each="trainer : ${trainers}" th:text="${trainer.name}" th:value="${trainer.id}"></option>
+            </select>
+            <select class="form-control mr-2" multiple="disabled" name="course">
+                <option disabled="disabled">Kurs</option>
+                <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
+            </select>
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+        </form>
+    </div>
+    <hr/>
+    <p class="small">
+        <a href="/weekplan/">Index</a>
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Online-Kursverwaltung</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <div class="mt-4 mb-4">
+        <h1>Kurse</h1>
+    </div>
+
+    <table th:if="${courses != null}" class="table">
+        <tr>
+            <th>Name</th>
+            <th>Beschreibung</th>
+            <th>Zielgruppe</th>
+            <th>Kategorie</th>
+        </tr>
+        <tr th:each="course : ${courses}">
+            <td th:text="${course.name}"></td>
+            <td th:text="${course.description}"></td>
+            <td th:text="${course.targetGroup}"></td>
+            <td th:text="${course.category}"></td>
+        </tr>
+    </table>
+
+    <div>
+        <hr/>
+        <h2>Neuer Eintrag</h2>
+        <!-- TODO Formular für das Hinzufügen eines JournalEntry-Objekts -->
+        <form th:action="${'showCourses/add'}" method="post" class="form-inline">
+            <input name="name" type="text" placeholder="Name" class="form-control mr-2">
+            <input name="description" type="text" placeholder="Beschreibung" class="form-control mr-2">
+            <input name="targetGroup" type="text" placeholder="Zielgruppe" class="form-control mr-2">
+            <input name="category" type="text" placeholder="Kategorie" class="form-control mr-2">
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+        </form>
+    </div>
+    <hr/>
+    <p class="small">
+        <a href="/weekplan/">Index</a>
+    </p>
+</div>
+</body>
+</html>
