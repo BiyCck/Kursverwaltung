@@ -14,5 +14,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<Trainer> findAllTrainer();
 
     @Query("select t from Trainer t where t.id = :id")
-    Optional<Trainer> findTrainerById(Long id);
+    Optional<Trainer> findTrainerById(@Param("id") Long id);
 }

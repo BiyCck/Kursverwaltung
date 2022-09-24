@@ -21,7 +21,6 @@ public class TrainerController {
     private final UserService userService;
     private final CourseService courseService;
 
-    //Anzeigen von Trainern
     @GetMapping
     public String show(Model model){
         model.addAttribute("trainers", userService.findAllTrainer());
@@ -31,7 +30,6 @@ public class TrainerController {
         return "weekplan/showTrainer";
     }
 
-    //Hinzufügen von Trainern
     @PostMapping(path = "/add")
     public String addEntry(Trainer trainer) {
         userService.save(trainer);

@@ -1,2 +1,0 @@
-# Kursverwaltung
-Kursverwaltung für Fitnessstudio

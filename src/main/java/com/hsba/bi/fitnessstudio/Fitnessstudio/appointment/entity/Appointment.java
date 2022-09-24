@@ -12,16 +12,11 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-/**
- * @bcicek Klasse für Termin-Objekt im Wochenplan
- */
-
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 public class Appointment {
-
 
     @Id
     @GeneratedValue

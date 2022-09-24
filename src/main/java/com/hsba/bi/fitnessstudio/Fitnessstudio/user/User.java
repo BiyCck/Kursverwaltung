@@ -7,15 +7,10 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-/**
- * @lcarrero Klasse für User-Objekt
- */
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-//Klasse wird vererbt von Trainer-Klasse, Joined-Table Class wird verwendet für das Anzeigen der Daten in der DB
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "discrim")
 @Table(name = "USERS")

@@ -1,23 +1,19 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Online-Kursverwaltung</title>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
+</head>
 <body>
-<div layout:fragment="content">
+<div class="container">
     <div class="my-4">
         <h1>WG-Kassenbuch</h1>
     </div>
 
-    <ul class="list-unstyled">
-        <li th:each="weekplan : ${weekplans}">
-            <a th:href="${'/weekplan/' + weekplan.id}" th:text="${weekplan.name}"></a>
-        </li>
-    </ul>
-
-    <form action="/weekplan" method="post" class="form-inline">
-        <input name="name" type="text" placeholder="Name" class="form-control mr-2">
-        <button type="submit" class="btn btn-primary">Anlegen</button>
-    </form>
+    <p class="small">
+        <a href="/weekplan/showWeekplan">Wochenplan</a>
+    </p>
 
     <p class="small">
         <a href="/weekplan/showCourses">Kurse</a>

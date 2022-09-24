@@ -4,10 +4,6 @@ import java.time.DayOfWeek;
 import java.time.format.TextStyle;
 import java.util.Locale;
 
-/**
- * @bcicek Klasse, um Wochentage für Thymeleaf auf Deutsch zu übersetzen
- */
-
 public class DayOfWeekTranslator {
     public static String[] dayOfWeekToGerman(){
         String[] daysOfWeekInGerman = new String[7];

@@ -8,10 +8,6 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * @bcicek Service-Klasse für Wochenplan-Objekt
- */
-
 @Service
 @Transactional
 @RequiredArgsConstructor

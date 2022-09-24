@@ -6,10 +6,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * @abakhtiari Klasse für Kurs Objekt
- */
-
 @Getter
 @Setter
 @NoArgsConstructor
