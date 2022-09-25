@@ -24,10 +24,10 @@ public class Appointment {
     private Long id;
 
     @Basic(optional = false)
-    DayOfWeek dayOfWeek;
+    private DayOfWeek dayOfWeek;
 
     @Basic(optional = false)
-    LocalTime localTime;
+    private LocalTime localTime;
 
     @ManyToOne(optional = false)
     private Room room;
