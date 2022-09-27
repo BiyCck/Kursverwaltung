@@ -15,4 +15,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("select t from Trainer t where t.id = :id")
     Optional<Trainer> findTrainerById(@Param("id") Long id);
+
+    User findDistinctByUsername(String username);
+
+    List<User> findByRole(String role);
 }

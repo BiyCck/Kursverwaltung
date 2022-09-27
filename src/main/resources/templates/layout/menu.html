@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block th:fragment="menu">
+  <form class="float-right" method="post" sec:authorize="authenticated" th:action="@{/logout}">
+    <button class="btn btn-sm btn-link" type="submit">
+      <span th:text="${#httpServletRequest.remoteUser}" />
+      abmelden
+    </button>
+  </form>
+  <a class="btn btn-sm btn-link float-right" href="/login" sec:authorize="anonymous">Anmelden</a>
+  <a class="btn btn-sm btn-link float-right" sec:authorize="hasRole('ADMIN')" th:href="@{/users/}">Nutzerverwaltung</a>
+</th:block>
+</body>
+</html>

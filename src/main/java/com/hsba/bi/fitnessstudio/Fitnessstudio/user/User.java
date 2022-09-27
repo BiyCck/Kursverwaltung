@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 
@@ -16,6 +18,18 @@ import javax.persistence.*;
 @Table(name = "USERS")
 @DiscriminatorValue("User")
 public class User implements Comparable<User>{
+
+    public static String USER_ROLE = "USER";
+    public static String TRAINER_ROLE = "TRAINER";
+    public static String ADMIN_ROLE = "ADMIN";
+
+    public static String getCurrentUsername() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return ((UserDetails) principal).getUsername();
+        }
+        return null;
+    }
 
     @Id
     @GeneratedValue

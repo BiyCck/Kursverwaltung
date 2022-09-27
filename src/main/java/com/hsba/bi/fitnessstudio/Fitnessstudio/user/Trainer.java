@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class Trainer extends User{
 
     public Trainer(String username, String password, String name, Set<DayOfWeek> workingDays, Set<Course> courses){
-        super(username, password, name, "Trainer");
+        super(username, password, name, TRAINER_ROLE);
         this.workingDays = workingDays;
         this.courses = courses;
     }
