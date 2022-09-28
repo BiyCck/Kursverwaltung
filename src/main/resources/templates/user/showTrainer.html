@@ -22,27 +22,10 @@
             <td th:text="${trainer.name}"></td>
             <td th:text="${trainer.courseNamesAsString}"></td>
             <td th:text="${trainer.workingDaysAsString}"></td>
+            <td><a th:href="${'/user/editTrainer/' + trainer.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
+            <td><form th:action="${'/user/deleteTrainer/' + trainer.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
         </tr>
     </table>
-
-    <div>
-        <hr/>
-        <h2>Neuer Eintrag</h2>
-        <form th:action="${'showTrainer/add'}" method="post" class="form-inline">
-            <input name="username" type="text" placeholder="Username" class="form-control mr-2">
-            <input name="password" type="text" placeholder="Password" class="form-control mr-2">
-            <input name="name" type="text" placeholder="Name" class="form-control mr-2">
-            <select class="form-control mr-2" multiple="multiple" name="courses">
-                <option disabled="disabled">Kurse</option>
-                <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
-            </select>
-            <select class="form-control mr-2" multiple="multiple" name="workingDays">
-                <option disabled="disabled">Arbeitstage</option>
-                <option th:each="workingDay : ${workingDays}" th:text="${workingDaysInGerman[workingDay.value - 1]}" th:value="${workingDay}"></option>
-            </select>
-            <button type="submit" class="btn btn-primary">Eintragen</button>
-        </form>
-    </div>
     <hr/>
     <p class="small">
         <a href="/weekplan/">Index</a>

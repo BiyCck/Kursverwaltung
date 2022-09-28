@@ -30,8 +30,16 @@ public class UserService {
         return userRepository.save(trainer);
     }
 
+    public void deleteById(Long id){
+        userRepository.deleteById(id);
+    }
+
     public Trainer getTrainer(Long id) {
         return userRepository.findTrainerById(id).orElse(null);
+    }
+
+    public User getUser(Long id){
+        return userRepository.findById(id).orElse(null);
     }
 
 }

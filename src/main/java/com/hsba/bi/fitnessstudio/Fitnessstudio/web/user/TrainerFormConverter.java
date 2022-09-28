@@ -1,5 +1,9 @@
-package com.hsba.bi.fitnessstudio.Fitnessstudio.user;
+package com.hsba.bi.fitnessstudio.Fitnessstudio.web.user;
 
+import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
+import org.springframework.stereotype.Component;
+
+@Component
 public class TrainerFormConverter {
 
     TrainerForm toForm(Trainer trainer){

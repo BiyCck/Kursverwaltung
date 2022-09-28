@@ -1,4 +1,4 @@
-package com.hsba.bi.fitnessstudio.Fitnessstudio.user;
+package com.hsba.bi.fitnessstudio.Fitnessstudio.web.user;
 
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Course;
 import lombok.Getter;

@@ -8,6 +8,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Getter
@@ -29,6 +31,10 @@ public class User implements Comparable<User>{
             return ((UserDetails) principal).getUsername();
         }
         return null;
+    }
+
+    public static String[] getRoleConstants(){
+        return new String[]{USER_ROLE, TRAINER_ROLE, ADMIN_ROLE};
     }
 
     @Id

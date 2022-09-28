@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="mt-4 mb-4">
+        <div th:replace="layout/menu :: menu"></div>
+        <h1>Kurse</h1>
+    </div>
+    <hr/>
+        <h2>Neuer Eintrag</h2>
+        <form th:action="${'user/showTrainer/add'}" th:object="${trainerForm}" method="post" class="form-inline">
+            <label class="col-form-label col-form-label-sm col-sm-2">Username</label>
+            <input th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}"
+                   th:field="*{username}" type="text" placeholder="Username" class="form-control mr-2">
+            <label class="col-form-label col-form-label-sm col-sm-2">Passwort</label>
+            <input th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
+                   th:field="*{password}" type="text" placeholder="Password" class="form-control mr-2">
+            <label class="col-form-label col-form-label-sm col-sm-2">Name</label>
+            <input th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
+                   th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
+            <label class="col-form-label col-form-label-sm col-sm-2">Kurse</label>
+            <select class="form-control mr-2" multiple="multiple" th:classappend="${#fields.hasErrors('courses') ? 'is-invalid' : ''}"
+                    th:field="*{courses}">
+                <option disabled="disabled">Kurse</option>
+                <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
+            </select>
+            <label class="col-form-label col-form-label-sm col-sm-2">Wochentag</label>
+            <select class="form-control mr-2" multiple="multiple" th:classappend="${#fields.hasErrors('workingDays') ? 'is-invalid' : ''}"
+                    th:field="*{workingDays}">
+                <option disabled="disabled">Arbeitstage</option>
+                <option th:each="workingDay : ${workingDays}" th:text="${workingDaysInGerman[workingDay.value - 1]}" th:value="${workingDay}"></option>
+            </select>
+            <button type="submit" class="btn btn-primary">Eintragen</button>
+        </form>
+    </div>
+</body>
+</html>
