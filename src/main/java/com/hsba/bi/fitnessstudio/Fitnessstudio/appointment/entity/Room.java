@@ -8,7 +8,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Room {
+public class Room implements Comparable<Room>{
 
     @Setter(AccessLevel.NONE)
     @Id
@@ -23,5 +23,10 @@ public class Room {
 
     public Room(String roomName) {
         this.roomName = roomName;
+    }
+
+    @Override
+    public int compareTo(Room o) {
+        return this.roomName.compareTo(o.roomName);
     }
 }

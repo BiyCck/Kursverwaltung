@@ -24,6 +24,8 @@
             <td th:text="${course.description}"></td>
             <td th:text="${course.targetGroup}"></td>
             <td th:text="${course.category}"></td>
+            <td><a th:href="${'/courses/editCourse/' + course.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
+            <td><form th:action="${'/courses/deleteCourse/' + course.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
         </tr>
     </table>
 

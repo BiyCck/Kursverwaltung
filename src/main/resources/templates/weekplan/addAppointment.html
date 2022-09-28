@@ -14,21 +14,29 @@
         <hr/>
         <h2>Neuer Eintrag</h2>
         <!-- TODO Formular für das Hinzufügen eines JournalEntry-Objekts -->
-        <form th:action="${'/weekplan/showWeekplan/' + trainer.id}" method="post" class="form-inline">
-            <select class="form-control mr-2" multiple="disabled" name="dayOfWeek">
-                <option disabled="disabled">Wochentag</option>
+        <form th:action="${'/weekplan/selectTrainer/' + trainer.id}" th:object="${appointmentForm}" method="post" class="form-inline">
+            <label class="col-form-label col-form-label-sm col-sm-2">Wochentag</label>
+            <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('dayOfWeek') ? 'is-invalid' : ''}"
+                    th:field="*{dayOfWeek}">
                 <option th:each="dayOfWeek : ${dayOfWeeks}" th:text="${daysOfWeekInGerman[dayOfWeek.value - 1]}" th:value="${dayOfWeek}"></option>
             </select>
+            <label class="text-danger small" th:errors="*{dayOfWeek}" />
             <label for="time">Uhrzeit:</label>
-            <input type="time" id="time" name="localTime">
-            <select class="form-control mr-2" multiple="disabled" name="room">
-                <option disabled="disabled">Raum</option>
+            <input type="time" id="time" th:classappend="${#fields.hasErrors('localTime') ? 'is-invalid' : ''}"
+                   th:field="*{localTime}">
+            <label class="text-danger small" th:errors="*{localTime}" />
+            <label class="col-form-label col-form-label-sm col-sm-2">Raum</label>
+            <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('room') ? 'is-invalid' : ''}"
+                    th:field="*{room}">
                 <option th:each="room : ${rooms}" th:text="${room.roomName}" th:value="${room.id}"></option>
             </select>
-            <select class="form-control mr-2" multiple="disabled" name="course">
-                <option disabled="disabled">Kurs</option>
+            <label class="text-danger small" th:errors="*{room}" />
+            <label class="col-form-label col-form-label-sm col-sm-2">Betrag</label>
+            <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('course') ? 'is-invalid' : ''}"
+                    th:field="*{course}">
                 <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
             </select>
+            <label class="text-danger small" th:errors="*{course}" />
             <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>
     </div>

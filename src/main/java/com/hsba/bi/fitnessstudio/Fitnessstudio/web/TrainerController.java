@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.time.DayOfWeek;
 
 @Controller
-@RequestMapping("/weekplan/showTrainer")
+@RequestMapping("/user/showTrainer")
 @RequiredArgsConstructor
 public class TrainerController {
 
@@ -27,12 +27,12 @@ public class TrainerController {
         model.addAttribute("workingDays", DayOfWeek.values());
         model.addAttribute("workingDaysInGerman", DayOfWeekTranslator.dayOfWeekToGerman());
         model.addAttribute("courses", courseService.findAll());
-        return "weekplan/showTrainer";
+        return "user/showTrainer";
     }
 
     @PostMapping(path = "/add")
     public String addEntry(Trainer trainer) {
         userService.save(trainer);
-        return "redirect:/weekplan/showTrainer";
+        return "redirect:/user/showTrainer";
     }
 }

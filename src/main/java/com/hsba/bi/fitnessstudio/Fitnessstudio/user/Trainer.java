@@ -32,6 +32,11 @@ public class Trainer extends User{
     private String role = "Trainer";
 
     @ManyToMany
+    @JoinTable(
+            name = "trainer_courses",
+            joinColumns = @JoinColumn(name = "trainer_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
     private Set<Course> courses;
 
     @OneToMany(mappedBy = "trainer")

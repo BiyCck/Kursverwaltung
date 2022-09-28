@@ -1,4 +1,4 @@
-package com.hsba.bi.fitnessstudio.Fitnessstudio.web;
+package com.hsba.bi.fitnessstudio.Fitnessstudio.web.appointment;
 
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Appointment;
 import org.springframework.stereotype.Component;
@@ -11,6 +11,7 @@ public class AppointmentFormConverter {
         form.setDayOfWeek(appointment.getDayOfWeek());
         form.setLocalTime(appointment.getLocalTime());
         form.setRoom(appointment.getRoom());
+        form.setCourse(appointment.getCourse());
         return form;
     }
 
@@ -18,6 +19,7 @@ public class AppointmentFormConverter {
         appointment.setDayOfWeek(form.getDayOfWeek());
         appointment.setLocalTime(form.getLocalTime());
         appointment.setRoom(form.getRoom());
+        appointment.setCourse(form.getCourse());
         return appointment;
     }
 

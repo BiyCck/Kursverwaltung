@@ -26,20 +26,16 @@
             <td th:text="${appointment.localTime}"></td>
             <td th:text="${appointment.room.roomName}"></td>
             <td th:text="${appointment.trainer.name}"></td>
+            <td><a th:href="${'/weekplan/editAppointment/' + appointment.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
+            <td><form th:action="${'/weekplan/deleteAppointment/' + appointment.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
         </tr>
+
     </table>
 
     <div>
-        <hr/>
-        <h2>Neuer Eintrag</h2>
-        <!-- TODO Formular für das Hinzufügen eines JournalEntry-Objekts -->
-        <form th:action="${'/weekplan/showWeekplan'}" method="post" class="form-inline">
-            <select class="form-control mr-2" multiple="disabled" name="trainer">
-                <option disabled="disabled">Trainer</option>
-                <option th:each="trainer : ${trainers}" th:text="${trainer.name}" th:value="${trainer.id}"></option>
-            </select>
-            <button type="submit" class="btn btn-primary">Eintragen</button>
-        </form>
+        <p class="small">
+            <a href="/weekplan/selectTrainer">Termin hinzufügen</a>
+        </p>
     </div>
     <hr/>
     <p class="small">

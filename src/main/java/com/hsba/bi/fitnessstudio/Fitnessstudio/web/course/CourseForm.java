@@ -1,4 +1,4 @@
-package com.hsba.bi.fitnessstudio.Fitnessstudio.web;
+package com.hsba.bi.fitnessstudio.Fitnessstudio.web.course;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -32,6 +32,9 @@ public class Course implements Comparable<Course>{
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     private Set<Appointment> appointments;
 
+    @ManyToMany(mappedBy = "courses")
+    private Set<Trainer> trainers;
+
     public Course(String name, String description, String targetGroup, String category) {
         this.name = name;
         this.description = description;

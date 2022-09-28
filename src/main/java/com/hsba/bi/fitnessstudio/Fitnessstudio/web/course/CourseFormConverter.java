@@ -1,6 +1,7 @@
-package com.hsba.bi.fitnessstudio.Fitnessstudio.web;
+package com.hsba.bi.fitnessstudio.Fitnessstudio.web.course;
 
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Course;
+import com.hsba.bi.fitnessstudio.Fitnessstudio.web.course.CourseForm;
 import org.springframework.stereotype.Component;
 
 @Component
