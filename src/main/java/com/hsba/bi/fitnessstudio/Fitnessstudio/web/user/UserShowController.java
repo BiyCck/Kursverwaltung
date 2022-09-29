@@ -1,5 +1,6 @@
 package com.hsba.bi.fitnessstudio.Fitnessstudio.web.user;
 
+import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.User;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.course.CourseForm;
@@ -32,43 +33,28 @@ public class UserShowController {
     }
 
     @GetMapping(path = "/addUser")
-    public String showAddUser(@PathVariable Long id, Model model) {
-        UserForm userForm = formConverter.toForm(new User());
+    public String showAddUser(Model model) {
+        UserForm userForm = new UserForm();
         model.addAttribute("userForm", userForm);
         return "user/addUser";
     }
 
     @PostMapping(path = "/addUser")
-    public String addUser(@PathVariable Long id, @ModelAttribute @Valid UserForm userForm, BindingResult userBinding, Model model) {
+    public String addUser(@ModelAttribute @Valid UserForm userForm, BindingResult userBinding, Model model) {
         if (userBinding.hasErrors()){
             model.addAttribute("userForm", userForm);
             return "user/addUser";
         }
-        userService.save(formConverter.update(new User(), userForm));
-        return "redirect:/user/showUsers";
-    }
-
-
-    @GetMapping(path = "/editUser/{id}")
-    public String showEditUser(@PathVariable Long id, Model model) {
-        model.addAttribute("user", userService.getUser(id));
-        UserForm userForm = formConverter.toForm(userService.getUser(id));
-        model.addAttribute("userForm", userForm);
-        return "user/editUser";
-    }
-
-    @PostMapping(path = "/editCourse/{id}")
-    public String editUser(@PathVariable Long id, @ModelAttribute @Valid UserForm userForm, BindingResult userBinding, Model model) {
-        if (userBinding.hasErrors()){
-            model.addAttribute("userForm", userForm);
-            return "user/editUser";
+        if (userForm.getRole().equals(User.TRAINER_ROLE)){
+            userService.save(formConverter.updateToTrainer(new Trainer(), userForm));
+        } else {
+            userService.save(formConverter.update(new User(), userForm));
         }
-        userService.save(formConverter.update(userService.getUser(id), userForm));
         return "redirect:/user/showUsers";
     }
 
-    @PostMapping(path = "/deleteCourse/{id}")
-    public String deleteCourse(@PathVariable("id") Long id) {
+    @PostMapping(path = "/deleteUser/{id}")
+    public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/user/showUsers";
     }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Online-Kursverwaltung</title>
     <link rel="stylesheet" type="text/css"
@@ -28,6 +29,7 @@
             <td th:text="${appointment.trainer.name}"></td>
             <td><a th:href="${'/weekplan/editAppointment/' + appointment.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
             <td><form th:action="${'/weekplan/deleteAppointment/' + appointment.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
+            <td th:if="${!appointment.checkIfTrainerDataIsValid()}">Dieser Termin muss bearbeitet werden, da der Trainer seine Daten geändert hat</td>
         </tr>
 
     </table>

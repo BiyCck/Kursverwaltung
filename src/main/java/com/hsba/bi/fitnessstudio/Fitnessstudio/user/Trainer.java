@@ -29,7 +29,7 @@ public class Trainer extends User{
     }
 
     @Basic(optional = false)
-    private String role = "Trainer";
+    private String role = TRAINER_ROLE;
 
     @ManyToMany
     @JoinTable(

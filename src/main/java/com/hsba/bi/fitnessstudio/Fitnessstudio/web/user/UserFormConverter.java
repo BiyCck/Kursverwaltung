@@ -1,5 +1,6 @@
 package com.hsba.bi.fitnessstudio.Fitnessstudio.web.user;
 
+import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.User;
 import org.springframework.stereotype.Component;
 
@@ -21,5 +22,13 @@ public class UserFormConverter {
         user.setName(userForm.getName());
         user.setRole(userForm.getRole());
         return user;
+    }
+
+    Trainer updateToTrainer(Trainer trainer, UserForm userForm){
+        trainer.setUsername(userForm.getUsername());
+        trainer.setPassword(userForm.getPassword());
+        trainer.setName(userForm.getName());
+        trainer.setRole(userForm.getRole());
+        return trainer;
     }
 }

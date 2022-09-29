@@ -37,6 +37,9 @@
                 <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
             </select>
             <label class="text-danger small" th:errors="*{course}" />
+            <hr/>
+            <label class="text-danger small" th:if="${trainerIsBooked != null}" th:text="${trainerIsBooked}"/>
+            <label class="text-danger small" th:if="${roomIsBooked != null}" th:text="${roomIsBooked}"/>
             <button type="submit" class="btn btn-primary">Eintragen</button>
         </form>
     </div>

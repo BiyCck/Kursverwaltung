@@ -1,4 +1,4 @@
-package com.hsba.bi.fitnessstudio.Fitnessstudio.appointment;
+package com.hsba.bi.fitnessstudio.Fitnessstudio.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

@@ -17,12 +17,15 @@
         <label class="col-form-label col-form-label-sm col-sm-2">Name</label>
         <input th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}"
                th:field="*{username}" type="text" placeholder="Name" class="form-control mr-2">
+        <hr/>
         <label class="col-form-label col-form-label-sm col-sm-2">Beschreibung</label>
         <input th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
                th:field="*{password}" type="text" placeholder="Beschreibung" class="form-control mr-2">
+        <hr/>
         <label class="col-form-label col-form-label-sm col-sm-2">Zielgruppe</label>
         <input th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
                th:field="*{name}" type="text" placeholder="Zielgruppe" class="form-control mr-2">
+        <hr/>
         <label class="col-form-label col-form-label-sm col-sm-2">Kategorie</label>
         <select class="form-control mr-2" multiple="disable" th:classappend="${#fields.hasErrors('role') ? 'is-invalid' : ''}"
                 th:field="*{role}">
@@ -30,6 +33,7 @@
             <option text="Trainer" th:value="${userRoles[1]}"></option>
             <option text="Admin" th:value="${userRoles[2]}"></option>
         </select>
+        <hr/>
         <button type="submit" class="btn btn-primary">Eintragen</button>
     </form>
 </div>

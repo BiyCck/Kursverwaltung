@@ -45,4 +45,12 @@ public class Appointment {
         this.trainer = trainer;
         this.course = course;
     }
+
+    public boolean checkIfTrainerDataIsValid(){
+        if (this.trainer.getCourses().contains(this.course) && this.trainer.getWorkingDays().contains(this.dayOfWeek)){
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

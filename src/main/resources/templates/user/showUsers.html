@@ -22,12 +22,11 @@
       <td th:text="${user.username}"></td>
       <td th:text="${user.name}"></td>
       <td th:text="${user.role}"></td>
-      <td><a th:href="${'/user/editUser/' + user.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
       <td><form th:action="${'/user/deleteUser/' + user.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
     </tr>
   </table>
   <hr/>
-  <a href="/user/addUser">Index</a>
+  <a href="/user/addUser"><button type="submit" class="btn btn-primary">Benutzer hinzufügen</button></a>
   <p class="small">
     <a href="/weekplan/">Index</a>
   </p>

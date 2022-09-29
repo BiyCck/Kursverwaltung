@@ -1,5 +1,7 @@
 package com.hsba.bi.fitnessstudio.Fitnessstudio.web.appointment;
 
+import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.RoomIsBookedException;
+import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.TrainerIsBookedException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Appointment;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Course;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Room;
@@ -70,7 +72,10 @@ public class AppointmentAddController {
         }
         Appointment appointment = new Appointment();
         appointment.setTrainer(userService.getTrainer(id));
-        appointmentService.save(formConverter.update(appointment, appointmentForm));
+        formConverter.update(appointment, appointmentForm);
+        appointmentService.checkIfTrainerIsAvailable(appointment);
+        appointmentService.checkIfRoomIsAvailable(appointment);
+        appointmentService.save(appointment);
         return "redirect:/weekplan/showWeekplan";
     }
 
@@ -87,4 +92,16 @@ public class AppointmentAddController {
         return "weekplan/trainerNotFound";
     }
 
+    @ExceptionHandler(TrainerIsBookedException.class)
+    public String trainerIsBooked(@ModelAttribute("appointmentForm") AppointmentForm appointmentForm, Model model, TrainerIsBookedException trainerIsBookedException){
+        model.addAttribute("appointmentForm", appointmentForm);
+        model.addAttribute("trainerIsBooked", trainerIsBookedException.getMessage());
+        return "weekplan/addAppointment";
+    }
+    @ExceptionHandler(RoomIsBookedException.class)
+    public String roomIsBooked(@ModelAttribute("appointmentForm") AppointmentForm appointmentForm, Model model, RoomIsBookedException roomIsBookedException){
+        model.addAttribute("appointmentForm", appointmentForm);
+        model.addAttribute("roomIsBooked", roomIsBookedException.getMessage());
+        return "weekplan/addAppointment";
+    }
 }
