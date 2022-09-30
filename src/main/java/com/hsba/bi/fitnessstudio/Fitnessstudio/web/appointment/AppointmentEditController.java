@@ -8,6 +8,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.DayOfWeekTran
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.RoomService;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
+import com.hsba.bi.fitnessstudio.Fitnessstudio.web.ForbiddenException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.TrainerNotFoundException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.AppointmentNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -75,7 +76,11 @@ public class AppointmentEditController {
             model.addAttribute("appointmentForm", appointmentForm);
             return "weekplan/editAppointment";
         }
-        appointmentService.save(formConverter.update(getAppointment(id), appointmentForm));
+        Appointment appointment = formConverter.update(getAppointment(id), appointmentForm);
+        if (!appointment.isOwnedByCurrentUser()){
+            throw new ForbiddenException();
+        }
+        appointmentService.save(appointment);
         return "redirect:/weekplan/showWeekplan";
     }
 

@@ -60,7 +60,7 @@ public class TrainerEditController {
         }
         Trainer trainer = formConverter.update(userService.getTrainer(id), trainerForm);
         userService.save(trainer);
-        return "redirect:/user/showTrainer";
+        return "redirect:/user/showTrainerSite";
     }
 
 }

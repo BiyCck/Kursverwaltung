@@ -11,6 +11,7 @@
   </form>
   <a class="btn btn-sm btn-link float-right" href="/login" sec:authorize="anonymous">Anmelden</a>
   <a class="btn btn-sm btn-link float-right" sec:authorize="hasRole('ADMIN')" th:href="@{/user/showUsers/}">Nutzerverwaltung</a>
+  <a class="btn btn-sm btn-link float-right" sec:authorize="hasRole('TRAINER')" th:href="@{/user/showTrainerSite/}">Meine Termine</a>
 </th:block>
 </body>
 </html>

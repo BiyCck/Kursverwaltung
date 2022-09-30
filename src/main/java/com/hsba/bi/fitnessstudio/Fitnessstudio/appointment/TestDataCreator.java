@@ -30,14 +30,14 @@ public class TestDataCreator {
     @EventListener(ApplicationStartedEvent.class)
     public void init(){
 
-        //Kurse
-        Course cardio = courseService.save(new Course("Laufbänder", "Laufbandtraining für Anfänger", "Anfänger", "Cardio"));
-        Course course = courseService.save(new Course("Crossfit", "Crossfit für Anfänger", "Anfänger", "Cardio"));
-
         //User & Trainer
         createUser("Biyan456", "123456", "Biyan Cicek", User.USER_ROLE);
         createUser("Test", "123456", "Test Cicek", User.ADMIN_ROLE);
-        createTrainer("Biyan123", "123456", "Biyan Cicek", Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY), Set.of(cardio, course));
+
+        Course laufband = createCourse("Laufbänder", "Laufbandtraining für Anfänger", "Anfänger", "Cardio");
+        Course crossfit = createCourse("Crossfit", "Crossfit für Anfänger", "Anfänger", "Cardio");
+
+        createTrainer("Biyan123", "123456", "Biyan Cicek", Set.of(DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY), Set.of(laufband, crossfit));
 
         //Räume
         Room room1 = roomService.save(new Room("Trainingsraum 1"));
@@ -58,5 +58,14 @@ public class TestDataCreator {
 
     private Trainer createTrainer(String username, String password, String name, Set<DayOfWeek> workingDays, Set<Course> courses){
         return userService.save(new Trainer(username, passwordEncoder.encode(password), name, workingDays, courses));
+    }
+
+    private Course createCourse(String name, String description, String targetGroup, String category){
+        Course course = new Course(userService.getUserByUsername("Test"));
+        course.setName(name);
+        course.setDescription(description);
+        course.setTargetGroup(targetGroup);
+        course.setCategory(category);
+        return courseService.save(course);
     }
 }

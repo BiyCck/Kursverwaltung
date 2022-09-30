@@ -1,6 +1,5 @@
 package com.hsba.bi.fitnessstudio.Fitnessstudio.user;
 
-import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Appointment;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +37,16 @@ public class UserService {
         return userRepository.findTrainerById(id).orElse(null);
     }
 
+    public Trainer getTrainerByName(String username) {
+        return userRepository.findTrainerByUsername(username).orElse(null);
+    }
+
     public User getUser(Long id){
         return userRepository.findById(id).orElse(null);
+    }
+
+    public User getUserByUsername(String username){
+        return userRepository.findDistinctByUsername(username);
     }
 
 }

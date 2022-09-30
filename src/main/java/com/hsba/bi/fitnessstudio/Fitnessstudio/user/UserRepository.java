@@ -16,6 +16,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select t from Trainer t where t.id = :id")
     Optional<Trainer> findTrainerById(@Param("id") Long id);
 
+    @Query("select t from Trainer t where t.username = :username")
+    Optional<Trainer> findTrainerByUsername(@Param("username") String name);
+
     @Query("select t from Trainer t join t.courses c where c.id = :id")
     List<Trainer> findTrainersByCourse(@Param("id") Long id);
 

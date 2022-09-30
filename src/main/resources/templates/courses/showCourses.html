@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Online-Kursverwaltung</title>
     <link rel="stylesheet" type="text/css"
@@ -24,15 +25,15 @@
             <td th:text="${course.description}"></td>
             <td th:text="${course.targetGroup}"></td>
             <td th:text="${course.category}"></td>
-            <td><a th:href="${'/courses/editCourse/' + course.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
-            <td><form th:action="${'/courses/deleteCourse/' + course.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
+            <td><a th:if="${course.ownedByCurrentUser}" th:href="${'/courses/editCourse/' + course.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
+            <td><form th:if="${course.ownedByCurrentUser}" th:action="${'/courses/deleteCourse/' + course.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
         </tr>
     </table>
 
-    <a href="/courses/showCourses/add">Neuen Kurs hinzufügen</a>
+    <a sec:authorize="hasRole('ADMIN')" href="/courses/showCourses/add">Neuen Kurs hinzufügen</a>
     <hr/>
     <p class="small">
-        <a href="/weekplan/">Index</a>
+        <a href="/weekplan/">Startseite</a>
     </p>
 </div>
 </body>

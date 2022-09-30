@@ -1,7 +1,5 @@
 package com.hsba.bi.fitnessstudio.Fitnessstudio.web.appointment;
 
-import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.RoomIsBookedException;
-import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.TrainerIsBookedException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Appointment;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Course;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Room;
@@ -9,7 +7,9 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.AppointmentSe
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.DayOfWeekTranslator;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.RoomService;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
+import com.hsba.bi.fitnessstudio.Fitnessstudio.user.User;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
+import com.hsba.bi.fitnessstudio.Fitnessstudio.web.ForbiddenException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.TrainerNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -70,11 +70,21 @@ public class AppointmentAddController {
             model.addAttribute("appointmentForm", appointmentForm);
             return "weekplan/addAppointment";
         }
-        Appointment appointment = new Appointment();
+        User currentUser = userService.getUserByUsername(User.getCurrentUsername());
+        Appointment appointment = new Appointment(currentUser);
         appointment.setTrainer(userService.getTrainer(id));
         formConverter.update(appointment, appointmentForm);
-        appointmentService.checkIfTrainerIsAvailable(appointment);
-        appointmentService.checkIfRoomIsAvailable(appointment);
+        if (appointmentService.checkIfTrainerIsAvailable(appointment) == false){
+            model.addAttribute("appointmentForm", appointmentForm);
+            model.addAttribute("trainerIsBooked", "Der Trainer ist zu diesem Zeitraum nicht verfügbar, bitte einen anderen Zeitraum auswählen");
+            return "weekplan/addAppointment";
+        } if (appointmentService.checkIfRoomIsAvailable(appointment) == false){
+            model.addAttribute("appointmentForm", appointmentForm);
+            model.addAttribute("roomIsBooked", "Der Raum ist zu diesem Zeitraum nicht verfügbar, bitte einen anderen Zeitraum auswählen");
+            return "weekplan/addAppointment";
+        } if (!appointment.isOwnedByCurrentUser()){
+            throw new ForbiddenException();
+        }
         appointmentService.save(appointment);
         return "redirect:/weekplan/showWeekplan";
     }
@@ -92,16 +102,4 @@ public class AppointmentAddController {
         return "weekplan/trainerNotFound";
     }
 
-    @ExceptionHandler(TrainerIsBookedException.class)
-    public String trainerIsBooked(@ModelAttribute("appointmentForm") AppointmentForm appointmentForm, Model model, TrainerIsBookedException trainerIsBookedException){
-        model.addAttribute("appointmentForm", appointmentForm);
-        model.addAttribute("trainerIsBooked", trainerIsBookedException.getMessage());
-        return "weekplan/addAppointment";
-    }
-    @ExceptionHandler(RoomIsBookedException.class)
-    public String roomIsBooked(@ModelAttribute("appointmentForm") AppointmentForm appointmentForm, Model model, RoomIsBookedException roomIsBookedException){
-        model.addAttribute("appointmentForm", appointmentForm);
-        model.addAttribute("roomIsBooked", roomIsBookedException.getMessage());
-        return "weekplan/addAppointment";
-    }
 }

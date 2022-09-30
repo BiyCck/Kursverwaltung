@@ -9,11 +9,10 @@
 <div class="container">
     <div class="mt-4 mb-4">
         <div th:replace="layout/menu :: menu"></div>
-        <h1>Kurse</h1>
+        <h1>Termin hinzufügen</h1>
     </div>
         <hr/>
         <h2>Neuer Eintrag</h2>
-        <!-- TODO Formular für das Hinzufügen eines JournalEntry-Objekts -->
         <form th:action="${'/weekplan/selectTrainer/' + trainer.id}" th:object="${appointmentForm}" method="post" class="form-inline">
             <label class="col-form-label col-form-label-sm col-sm-2">Wochentag</label>
             <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('dayOfWeek') ? 'is-invalid' : ''}"
@@ -21,31 +20,34 @@
                 <option th:each="dayOfWeek : ${dayOfWeeks}" th:text="${daysOfWeekInGerman[dayOfWeek.value - 1]}" th:value="${dayOfWeek}"></option>
             </select>
             <label class="text-danger small" th:errors="*{dayOfWeek}" />
+            <br>
             <label for="time">Uhrzeit:</label>
             <input type="time" id="time" th:classappend="${#fields.hasErrors('localTime') ? 'is-invalid' : ''}"
                    th:field="*{localTime}">
             <label class="text-danger small" th:errors="*{localTime}" />
+            <br>
             <label class="col-form-label col-form-label-sm col-sm-2">Raum</label>
             <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('room') ? 'is-invalid' : ''}"
                     th:field="*{room}">
                 <option th:each="room : ${rooms}" th:text="${room.roomName}" th:value="${room.id}"></option>
             </select>
             <label class="text-danger small" th:errors="*{room}" />
+            <br>
             <label class="col-form-label col-form-label-sm col-sm-2">Betrag</label>
             <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('course') ? 'is-invalid' : ''}"
                     th:field="*{course}">
                 <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
             </select>
             <label class="text-danger small" th:errors="*{course}" />
-            <hr/>
+            <br>
             <label class="text-danger small" th:if="${trainerIsBooked != null}" th:text="${trainerIsBooked}"/>
             <label class="text-danger small" th:if="${roomIsBooked != null}" th:text="${roomIsBooked}"/>
-            <button type="submit" class="btn btn-primary">Eintragen</button>
+            <button type="submit" class="btn btn-primary">Hinzufügen</button>
         </form>
     </div>
     <hr/>
     <p class="small">
-        <a href="/weekplan/showWeekplan">Index</a>
+        <a href="/weekplan/showWeekplan">Startseite</a>
     </p>
 </body>
 </html>

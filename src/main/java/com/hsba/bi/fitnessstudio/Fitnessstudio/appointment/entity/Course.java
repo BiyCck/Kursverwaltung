@@ -1,6 +1,7 @@
 package com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity;
 
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
+import com.hsba.bi.fitnessstudio.Fitnessstudio.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,6 +30,14 @@ public class Course implements Comparable<Course>{
     @Basic(optional = false)
     private String category;
 
+    @ManyToOne(optional = false)
+    @Setter(AccessLevel.NONE)
+    private User owner;
+
+    public Course(User owner){
+        this.owner = owner;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     private Set<Appointment> appointments;
 
@@ -46,4 +55,9 @@ public class Course implements Comparable<Course>{
     public int compareTo(Course other) {
         return this.name.compareTo(other.getName());
     }
+
+    public boolean isOwnedByCurrentUser() {
+        return this.owner != null && this.owner.getUsername().equals(User.getCurrentUsername());
+    }
+
 }

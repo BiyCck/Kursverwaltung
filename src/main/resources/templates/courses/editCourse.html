@@ -12,20 +12,24 @@
         <h1>Kurse</h1>
     </div>
     <hr/>
-    <h2>Neuer Eintrag</h2>
+    <h2>Eintrag bearbeiten</h2>
     <form th:action="${'/courses/editCourse/' + course.id}" th:object="${courseForm}" method="post" class="form-inline">
         <label class="col-form-label col-form-label-sm col-sm-2">Name</label>
         <input th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
                th:field="*{name}" type="text" placeholder="Name" class="form-control mr-2">
+        <br>
         <label class="col-form-label col-form-label-sm col-sm-2">Beschreibung</label>
         <input th:classappend="${#fields.hasErrors('description') ? 'is-invalid' : ''}"
                th:field="*{description}" type="text" placeholder="Beschreibung" class="form-control mr-2">
+        <br>
         <label class="col-form-label col-form-label-sm col-sm-2">Zielgruppe</label>
         <input th:classappend="${#fields.hasErrors('targetGroup') ? 'is-invalid' : ''}"
                th:field="*{targetGroup}" type="text" placeholder="Zielgruppe" class="form-control mr-2">
+        <br>
         <label class="col-form-label col-form-label-sm col-sm-2">Kategorie</label>
         <input th:classappend="${#fields.hasErrors('category') ? 'is-invalid' : ''}"
                th:field="*{category}" type="text" placeholder="Kategorie" class="form-control mr-2">
+        <br>
         <button type="submit" class="btn btn-primary">Eintragen</button>
     </form>
 </div>
