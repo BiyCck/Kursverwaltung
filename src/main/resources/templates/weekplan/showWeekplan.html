@@ -29,14 +29,14 @@
             <td th:text="${appointment.trainer.name}"></td>
             <td><a th:if="${appointment.ownedByCurrentUser}" th:href="${'/weekplan/editAppointment/' + appointment.id}"><button type="submit" class="btn btn-primary">Bearbeiten</button></a></td>
             <td><form th:if="${appointment.ownedByCurrentUser}"  th:action="${'/weekplan/deleteAppointment/' + appointment.id}" method="post" class="form"><button type="submit" class="btn btn-danger">Löschen</button></form></td>
-            <td th:if="${!appointment.checkIfTrainerDataIsValid()}">Dieser Termin muss bearbeitet werden, da der Trainer seine Daten geändert hat</td>
+            <td th:if="${!appointment.checkIfTrainerDataIsValid()}" >Dieser Termin muss bearbeitet werden, da der Trainer seine Daten geändert hat</td>
         </tr>
 
     </table>
 
     <div>
         <p class="small">
-            <a href="/weekplan/selectTrainer">Termin hinzufügen</a>
+            <a sec:authorize="hasRole('ADMIN')" href="/weekplan/selectTrainer">Termin hinzufügen</a>
         </p>
     </div>
     <hr/>

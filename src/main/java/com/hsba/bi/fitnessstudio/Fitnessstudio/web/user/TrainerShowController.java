@@ -16,6 +16,10 @@ import javax.validation.Valid;
 import java.time.DayOfWeek;
 import java.util.List;
 
+/**
+ * Controller zum Anzeigen von allen Trainern im Fitnessstudio
+ */
+
 @Controller
 @RequestMapping("/user/showTrainer")
 @RequiredArgsConstructor

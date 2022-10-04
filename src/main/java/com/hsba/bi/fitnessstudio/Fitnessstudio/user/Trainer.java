@@ -5,6 +5,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Course;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import java.time.DayOfWeek;
@@ -18,7 +19,9 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @NoArgsConstructor
+//Discrim-Wert in der User-Tabelle soll Trainer sein
 @DiscriminatorValue("Trainer")
+//Join-Column soll die Spalte ID sein
 @PrimaryKeyJoinColumn(name = "id")
 public class Trainer extends User{
 
@@ -31,6 +34,7 @@ public class Trainer extends User{
     @Basic(optional = false)
     private String role = TRAINER_ROLE;
 
+    //Tabelle für die ManyToMany-Beziehung zwischen Trainer und Kurse soll erstellt werden, durch die IDs beider Objekte soll der Join erfolgen
     @ManyToMany
     @JoinTable(
             name = "trainer_courses",
@@ -39,9 +43,11 @@ public class Trainer extends User{
     )
     private Set<Course> courses;
 
-    @OneToMany(mappedBy = "trainer")
+    //Trainer ist Owner der Beziehung, deshalb soll über den Trainer gemapped werden
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "trainer")
     private Set<Appointment> appointments;
 
+    //
     @ElementCollection(targetClass = DayOfWeek.class)
     @JoinTable(name = "workingDays", joinColumns = @JoinColumn(name = "trainer_id"))
     @Column(name = "workingDays", nullable = false)

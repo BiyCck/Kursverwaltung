@@ -13,7 +13,6 @@
     </div>
     <hr/>
     <h2>Eintrag bearbeiten</h2>
-    <!-- TODO Formular für das Hinzufügen eines JournalEntry-Objekts -->
     <form th:action="${'/weekplan/editAppointment/' + appointment.id}" th:object="${appointmentForm}" method="post" class="form-inline">
         <label class="col-form-label col-form-label-sm col-sm-2">Wochentag</label>
         <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('dayOfWeek') ? 'is-invalid' : ''}"
@@ -34,12 +33,14 @@
         </select>
         <label class="text-danger small" th:errors="*{room}" />
         <br>
-        <label class="col-form-label col-form-label-sm col-sm-2">Betrag</label>
+        <label class="col-form-label col-form-label-sm col-sm-2">Kurs</label>
         <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('course') ? 'is-invalid' : ''}"
                 th:field="*{course}">
             <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>
         </select>
         <label class="text-danger small" th:errors="*{course}" />
+        <label class="text-danger small" th:if="${trainerIsBooked != null}" th:text="${trainerIsBooked}"/>
+        <label class="text-danger small" th:if="${roomIsBooked != null}" th:text="${roomIsBooked}"/>
         <button type="submit" class="btn btn-primary">Aktualisieren</button>
     </form>
 </div>

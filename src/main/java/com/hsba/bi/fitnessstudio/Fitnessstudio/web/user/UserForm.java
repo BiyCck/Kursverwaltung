@@ -5,6 +5,10 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
+/**
+ * Formularobjekt für User-Objekte
+ */
+
 @Getter
 @Setter
 public class UserForm {

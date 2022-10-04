@@ -33,7 +33,7 @@
             </select>
             <label class="text-danger small" th:errors="*{room}" />
             <br>
-            <label class="col-form-label col-form-label-sm col-sm-2">Betrag</label>
+            <label class="col-form-label col-form-label-sm col-sm-2">Kurs</label>
             <select class="form-control mr-2" multiple="disabled" th:classappend="${#fields.hasErrors('course') ? 'is-invalid' : ''}"
                     th:field="*{course}">
                 <option th:each="course : ${courses}" th:text="${course.name}" th:value="${course.id}"></option>

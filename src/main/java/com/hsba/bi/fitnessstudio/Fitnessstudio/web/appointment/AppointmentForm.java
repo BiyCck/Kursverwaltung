@@ -10,6 +10,10 @@ import javax.validation.constraints.Size;
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 
+/**
+ * Formularobjekt für Termine
+ */
+
 @Getter
 @Setter
 public class AppointmentForm {

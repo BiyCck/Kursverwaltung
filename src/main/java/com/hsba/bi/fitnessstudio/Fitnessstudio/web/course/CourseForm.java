@@ -6,6 +6,10 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
+/**
+ * Formularobjekt für Kurse
+ */
+
 @Getter
 @Setter
 public class CourseForm {

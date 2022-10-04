@@ -7,6 +7,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+/**
+ * Klasse für Kurs-Objekt
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,9 +42,11 @@ public class Course implements Comparable<Course>{
         this.owner = owner;
     }
 
+    //Kurs ist Owner der Terminbeziehung, deshalb wird mappedBy ="course" hinzugefügt. Es sollen alle Operationen Kaskadierend erfolgen
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "course")
     private Set<Appointment> appointments;
 
+    //Aufgrund von Datenbankmodellierung wird Kurs als Owner der Beziehung gesetzt
     @ManyToMany(mappedBy = "courses")
     private Set<Trainer> trainers;
 
@@ -56,6 +62,7 @@ public class Course implements Comparable<Course>{
         return this.name.compareTo(other.getName());
     }
 
+    //Methode zum Abrufen, ob der eingeloggte Nutzer der Admin ist
     public boolean isOwnedByCurrentUser() {
         return this.owner != null && this.owner.getUsername().equals(User.getCurrentUsername());
     }

@@ -4,6 +4,10 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * Klasse für Raum-Objekt
+ */
+
 @Entity
 @Getter
 @Setter

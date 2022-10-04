@@ -3,6 +3,10 @@ package com.hsba.bi.fitnessstudio.Fitnessstudio.web.appointment;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.entity.Appointment;
 import org.springframework.stereotype.Component;
 
+/**
+ * Converter des Formularobjektes für Termine
+ */
+
 @Component
 public class AppointmentFormConverter {
 

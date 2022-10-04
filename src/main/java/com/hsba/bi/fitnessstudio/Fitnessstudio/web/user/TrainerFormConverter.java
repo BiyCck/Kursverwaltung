@@ -3,6 +3,10 @@ package com.hsba.bi.fitnessstudio.Fitnessstudio.web.user;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import org.springframework.stereotype.Component;
 
+/**
+ * Converter für Trainerformulare
+ */
+
 @Component
 public class TrainerFormConverter {
 

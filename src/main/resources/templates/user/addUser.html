@@ -16,21 +16,21 @@
     <form th:action="${'/user/addUser/'}" th:object="${userForm}" method="post" class="form-inline">
         <label class="col-form-label col-form-label-sm col-sm-2">Username</label>
         <input th:classappend="${#fields.hasErrors('username') ? 'is-invalid' : ''}"
-               th:field="*{username}" type="text" placeholder="Name" class="form-control mr-2">
+               th:field="*{username}" type="text" placeholder="Username" class="form-control mr-2">
         <br>
         <label class="col-form-label col-form-label-sm col-sm-2">Passwort</label>
         <input th:classappend="${#fields.hasErrors('password') ? 'is-invalid' : ''}"
-               th:field="*{password}" type="text" placeholder="Beschreibung" class="form-control mr-2">
+               th:field="*{password}" type="text" placeholder="Passwort" class="form-control mr-2">
         <br>
         <label class="col-form-label col-form-label-sm col-sm-2">Vollständiger Name</label>
         <input th:classappend="${#fields.hasErrors('name') ? 'is-invalid' : ''}"
-               th:field="*{name}" type="text" placeholder="Zielgruppe" class="form-control mr-2">
+               th:field="*{name}" type="text" placeholder="Vollständiger Name" class="form-control mr-2">
         <br>
         <label class="col-form-label col-form-label-sm col-sm-2">Rolle</label>
         <select class="form-control mr-2" multiple="disable" th:classappend="${#fields.hasErrors('role') ? 'is-invalid' : ''}"
                 th:field="*{role}">
-            <option text="User" th:value="${userRoles[0]}"></option>
-            <option text="Trainer" th:value="${userRoles[1]}"></option>
+            <option th:value="${userRoles[0]}">User</option>
+            <option th:value="${userRoles[1]}">Trainer</option>
         </select>
         <br>
         <button type="submit" class="btn btn-primary">Hinzufügen</button>

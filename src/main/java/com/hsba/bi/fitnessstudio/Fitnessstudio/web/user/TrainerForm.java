@@ -9,6 +9,10 @@ import javax.validation.constraints.Size;
 import java.time.DayOfWeek;
 import java.util.Set;
 
+/**
+ * Formularobjekt für Trainer
+ */
+
 @Getter
 @Setter
 public class TrainerForm {

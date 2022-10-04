@@ -4,6 +4,10 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.User;
 import org.springframework.stereotype.Component;
 
+/**
+ * Converter für User-Formulare
+ */
+
 @Component
 public class UserFormConverter {
 

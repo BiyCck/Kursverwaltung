@@ -12,6 +12,10 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Service-Klasse für Kurs-Objekte
+ */
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -28,6 +32,7 @@ public class CourseService {
         return courseRepository.save(course);
     }
 
+    //Aufgrund von Integritätsverletzungen des Foreign-Keys, wird zuerst das Kurs-Objekt aus allen Trainern entfernt, die diesen Kurs anbieten
     public void deleteById(Long id){
         Course course = courseRepository.findById(id).orElse(null);
         List<Trainer> trainers = userRepository.findTrainersByCourse(course.getId());

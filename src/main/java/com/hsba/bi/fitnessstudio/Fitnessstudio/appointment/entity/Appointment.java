@@ -13,6 +13,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+/**
+ * Klasse für Termin-Objekt
+ */
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,6 +43,7 @@ public class Appointment {
     @ManyToOne(optional = false)
     private Course course;
 
+    //Owner des Objektes wird als Admin gesetzt
     @ManyToOne(optional = false)
     @Setter(AccessLevel.NONE)
     private User owner;
@@ -55,10 +60,11 @@ public class Appointment {
         this.course = course;
     }
 
+    //Methode zum Prüfen, ob Trainer schon für neuen Termin gebucht ist
     public boolean checkIfTrainerDataIsValid(){
         return this.trainer.getCourses().contains(this.course) && this.trainer.getWorkingDays().contains(this.dayOfWeek);
     }
-
+    //Methode zum Prüfen, ob Raum schon für neuen Termin gebucht ist
     public boolean isOwnedByCurrentUser() {
         return this.owner != null && this.owner.getUsername().equals(User.getCurrentUsername());
     }

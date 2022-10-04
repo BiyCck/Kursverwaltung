@@ -22,6 +22,10 @@ import java.time.DayOfWeek;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Controller zum Bearbeiten von Terminobjekten
+ */
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(path = "/weekplan/editAppointment/{id}")
@@ -32,14 +36,17 @@ public class AppointmentEditController {
     private final UserService userService;
     private final AppointmentFormConverter formConverter;
 
+    //Laden der Modelattribute
+    //Greift vom Pfad die ID des Termins ab, holt den Termin
     @ModelAttribute("appointment")
     public Appointment getAppointmentForModel(@PathVariable("id") Long id){
         return getAppointment(id);
     }
 
+    //Greift den Trainer vom jeweiligen Termin ab
     @ModelAttribute("trainer")
     public Trainer getTrainerForModel(@PathVariable("id") Long id){
-        return userService.getTrainer(id);
+        return getTrainer(id);
     }
 
     @ModelAttribute("rooms")
@@ -47,12 +54,14 @@ public class AppointmentEditController {
         return roomService.findAll();
     }
 
+    //Greift den Kurs vom jeweiligen Trainer ab
     @ModelAttribute("courses")
     public Set<Course> getCourses(@PathVariable("id") Long id){
         Trainer trainer = getTrainer(id);
         return trainer.getCourses();
     }
 
+    //Greift die Arbeitstage vom jeweiligen Trainer ab
     @ModelAttribute("dayOfWeeks")
     public Set<DayOfWeek> getDayOfWeeks(@PathVariable("id") Long id){
         Trainer trainer = getTrainer(id);
@@ -64,14 +73,17 @@ public class AppointmentEditController {
         return DayOfWeekTranslator.dayOfWeekToGerman();
     }
 
+    //Anzeigen der Edit-Appointment-Seite
     @GetMapping
     public String showEditAppointmentSite(@PathVariable("id") Long id, Model model){
+        //Wandelt den ausgewählten Termin als Formular-Objekt um
         model.addAttribute("appointmentForm", formConverter.toForm(getAppointment(id)));
         return "weekplan/editAppointment";
     }
 
     @PostMapping
     public String editAppointment(@PathVariable("id") Long id, @ModelAttribute("appointmentForm") @Valid AppointmentForm appointmentForm, BindingResult appointmentBinding, Model model){
+        //Bei Fehlern in der Validierung wird die Seite zurückgegeben
         if (appointmentBinding.hasErrors()){
             model.addAttribute("appointmentForm", appointmentForm);
             return "weekplan/editAppointment";
@@ -79,6 +91,17 @@ public class AppointmentEditController {
         Appointment appointment = formConverter.update(getAppointment(id), appointmentForm);
         if (!appointment.isOwnedByCurrentUser()){
             throw new ForbiddenException();
+        }
+        if (appointmentService.checkIfTrainerIsAvailable(appointment) == false){
+            model.addAttribute("appointmentForm", appointmentForm);
+            model.addAttribute("trainerIsBooked", "Der Trainer ist zu diesem Zeitraum nicht verfügbar, bitte einen anderen Zeitraum auswählen");
+            return "weekplan/editAppointment";
+        }
+        //Falls Raum nicht verfügbar ist, wird das Formular zurückgesendet mit Fehlermeldung
+        if (appointmentService.checkIfRoomIsAvailable(appointment) == false){
+            model.addAttribute("appointmentForm", appointmentForm);
+            model.addAttribute("roomIsBooked", "Der Raum ist zu diesem Zeitraum nicht verfügbar, bitte einen anderen Zeitraum auswählen");
+            return "weekplan/editAppointment";
         }
         appointmentService.save(appointment);
         return "redirect:/weekplan/showWeekplan";

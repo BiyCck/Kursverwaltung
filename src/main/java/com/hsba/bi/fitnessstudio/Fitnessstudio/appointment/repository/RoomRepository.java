@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository für Raum-Objekte
+ */
+
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Long> {
-
-    public Optional<Room> findById(Long id);
+    Optional<Room> findById(Long id);
 }

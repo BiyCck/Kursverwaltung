@@ -15,6 +15,10 @@ import javax.validation.Valid;
 import java.time.DayOfWeek;
 import java.util.List;
 
+/**
+ * Controller für das Bearbeiten von den Daten eines Trainers
+ */
+
 @Controller
 @RequestMapping("/user/editTrainer/{id}")
 @RequiredArgsConstructor
@@ -40,13 +44,16 @@ public class TrainerEditController {
         return courseService.findAll();
     }
 
+    //Abgreifen der Trainer-ID vom Pfad
     @ModelAttribute("trainer")
     public Trainer getTrainer(@PathVariable("id") Long id){
         return userService.getTrainer(id);
     }
 
+    //Anzeigen des Bearbeitungsformular vom Trainer
     @GetMapping
     public String showEditTrainerSite(@PathVariable("id") Long id, Model model){
+        //Umwandeln des Trainers in ein Formular-Objekt
         TrainerForm trainerForm = formConverter.toForm(userService.getTrainer(id));
         model.addAttribute("trainerForm", trainerForm);
         return "user/editTrainer";
@@ -54,10 +61,12 @@ public class TrainerEditController {
 
     @PostMapping
     public String editTrainer(@PathVariable("id") Long id, @ModelAttribute("trainerForm") @Valid TrainerForm trainerForm, BindingResult trainerBinding, Model model){
+        //Falls das Formular Fehler beinhaltet, wird das Formular zurückgesendet
         if (trainerBinding.hasErrors()){
             model.addAttribute("trainerForm", trainerForm);
             return "user/editTrainer";
         }
+        //Daten vom Formular werden übernommen und abgespeichert
         Trainer trainer = formConverter.update(userService.getTrainer(id), trainerForm);
         userService.save(trainer);
         return "redirect:/user/showTrainerSite";

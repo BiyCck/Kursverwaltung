@@ -8,6 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Adapter für User-Klasse, um Nutzerobjekte in Spring Security nutzen zu können, liefert Details zum angemeldeten User
+ */
+
 @RequiredArgsConstructor
 public class UserAdapter implements UserDetails {
 
