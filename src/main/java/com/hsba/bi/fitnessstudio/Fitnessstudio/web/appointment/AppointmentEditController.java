@@ -12,6 +12,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.web.ForbiddenException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.TrainerNotFoundException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.AppointmentNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,6 +30,7 @@ import java.util.Set;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping(path = "/weekplan/editAppointment/{id}")
+@PreAuthorize("hasRole('ADMIN')")
 public class AppointmentEditController {
 
     private final AppointmentService appointmentService;
@@ -76,8 +78,12 @@ public class AppointmentEditController {
     //Anzeigen der Edit-Appointment-Seite
     @GetMapping
     public String showEditAppointmentSite(@PathVariable("id") Long id, Model model){
+        Appointment appointment = getAppointment(id);
+        if (!appointment.isOwnedByCurrentUser()){
+            throw new ForbiddenException();
+        }
         //Wandelt den ausgewählten Termin als Formular-Objekt um
-        model.addAttribute("appointmentForm", formConverter.toForm(getAppointment(id)));
+        model.addAttribute("appointmentForm", formConverter.toForm(appointment));
         return "weekplan/editAppointment";
     }
 

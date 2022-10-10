@@ -7,6 +7,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.RoomService;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,7 @@ public class AppointmentShowController {
 
     //Löschen eines Termins
     @PostMapping("/deleteAppointment/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteAppointment(@PathVariable("id") Long id){
         appointmentService.delete(id);
         return "redirect:/weekplan/showWeekplan";
@@ -56,6 +58,7 @@ public class AppointmentShowController {
 
     //Anzeigen des Selectionsscreens für das Auswählen eines Trainers bei neuem Termin
     @GetMapping(path = "/selectTrainer")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showSelectTrainerSite(Model model) {
         model.addAttribute("trainers", userService.findAllTrainer());
         return "weekplan/selectTrainer";
@@ -63,6 +66,7 @@ public class AppointmentShowController {
 
     //Hinzufügen der Trainer-ID, welche in der URL vom AddController abgegriffen wird
     @PostMapping(path = "/selectTrainer")
+    @PreAuthorize("hasRole('ADMIN')")
     public String selectTrainer(Trainer trainer) {
         return "redirect:/weekplan/selectTrainer/" + trainer.getId();
     }

@@ -12,6 +12,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.ForbiddenException;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.TrainerNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -70,6 +71,7 @@ public class AppointmentAddController {
 
     //Anzeigen des Termin-Formulares
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public String showAddAppointmentSite(Model model){
         model.addAttribute("appointmentForm", new AppointmentForm());
         return "weekplan/addAppointment";

@@ -27,8 +27,6 @@ public class CourseController {
     private final CourseFormConverter formConverter;
     private final UserService userService;
 
-
-
     //Anzeigen der Kursseite
     @GetMapping(path = "/showCourses")
     public String show(Model model) {
@@ -38,6 +36,7 @@ public class CourseController {
 
     //Anzeigen des Formulares beim Hinzufügen eines Kurses
     @GetMapping(path = "/showCourses/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public String showAddCourse(Model model) {
         CourseForm courseForm = formConverter.toForm(new Course());
         model.addAttribute("courseForm", courseForm);
@@ -46,6 +45,7 @@ public class CourseController {
 
     //Hinzufügen eines neuen Kurses
     @PostMapping(path = "/showCourses/add")
+    @PreAuthorize("hasRole('ADMIN')")
     public String addCourse(@ModelAttribute @Valid CourseForm courseForm, BindingResult courseBinding, Model model) {
         //Formular wird validiert, Formular wird bei Fehlern zurückgesendet
         if (courseBinding.hasErrors()){
@@ -64,8 +64,12 @@ public class CourseController {
     //Formular zum Bearbeiten von Kursen wird angezeigt
     @GetMapping(path = "/editCourse/{id}")
     public String showEditCourse(@PathVariable Long id, Model model) {
-        model.addAttribute("course", courseService.getCourse(id));
-        CourseForm courseForm = formConverter.toForm(courseService.getCourse(id));
+        Course course = courseService.getCourse(id);
+        if (!course.isOwnedByCurrentUser()){
+            throw new ForbiddenException();
+        }
+        model.addAttribute("course", course);
+        CourseForm courseForm = formConverter.toForm(course);
         model.addAttribute("courseForm", courseForm);
         return "courses/editCourse";
     }
@@ -92,6 +96,10 @@ public class CourseController {
     //Löschen von Kursen
     @PostMapping(path = "/deleteCourse/{id}")
     public String deleteCourse(@PathVariable("id") Long id) {
+        Course course = courseService.getCourse(id);
+        if (!course.isOwnedByCurrentUser()){
+            throw new ForbiddenException();
+        }
         courseService.deleteById(id);
         return "redirect:/courses/showCourses";
     }

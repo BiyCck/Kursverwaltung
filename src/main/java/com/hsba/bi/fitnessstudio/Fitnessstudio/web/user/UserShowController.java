@@ -5,6 +5,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.user.User;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.web.course.CourseForm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping(path = "/user")
+@PreAuthorize("hasRole('ADMIN')")
 @RequiredArgsConstructor
 public class UserShowController {
 

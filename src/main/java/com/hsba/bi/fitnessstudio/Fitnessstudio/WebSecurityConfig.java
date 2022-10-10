@@ -20,17 +20,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/user/showTrainer").permitAll()
                 //Editieren der Trainer-Daten und der Termine vom Trainer soll nur Trainern erlaubt sein
                 .antMatchers("/user/showTrainerSite").hasRole("TRAINER")
-                .antMatchers("/user/editTrainer").hasRole("TRAINER")
+                .antMatchers("/user/editTrainer/{id}").hasRole("TRAINER")
                 //Nutzerverwaltung soll nur dem Admin erlaubt sein
                 .antMatchers("/user/showUsers").hasRole("ADMIN")
                 .antMatchers("/user/addUser").hasRole("ADMIN")
+                .antMatchers("/user/deleteUser/{id}").hasRole("ADMIN")
                 //Hinzufügen und Bearbeiten von Terminen sollen nur Admins erlaubt sein
-                .antMatchers("/weekplan/addAppointment").hasRole("ADMIN")
-                .antMatchers("/weekplan/editAppointment").hasRole("ADMIN")
+                .antMatchers("/weekplan/selectTrainer/{id}").hasRole("ADMIN")
+                .antMatchers("/weekplan/editAppointment/{id}").hasRole("ADMIN")
                 .antMatchers("/weekplan/selectTrainer").hasRole("ADMIN")
                 //Hinzufügen und Bearbeiten von Kursen sollen nur Admins erlaubt sein
-                .antMatchers("/courses/addCourse").hasRole("ADMIN")
-                .antMatchers("/courses/editCourse").hasRole("ADMIN")
+                .antMatchers("/courses/showCourses/add").hasRole("ADMIN")
+                .antMatchers("/courses/editCourse/{id}").hasRole("ADMIN")
                 .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()

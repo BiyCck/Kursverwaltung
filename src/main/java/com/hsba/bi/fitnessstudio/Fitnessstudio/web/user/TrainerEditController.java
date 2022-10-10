@@ -6,6 +6,7 @@ import com.hsba.bi.fitnessstudio.Fitnessstudio.appointment.service.DayOfWeekTran
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.Trainer;
 import com.hsba.bi.fitnessstudio.Fitnessstudio.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user/editTrainer/{id}")
+@PreAuthorize("hasRole('TRAINER')")
 @RequiredArgsConstructor
 public class TrainerEditController {
 
